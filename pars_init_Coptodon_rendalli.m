@@ -6,9 +6,9 @@ metaPar.model = 'std';
 par.T_ref = C2K(20);  free.T_ref = 0;   units.T_ref = 'K';        label.T_ref = 'Reference temperature';
 
 %% Arrhenius parameters
-par.T_A = 8891.862;   free.T_A   = 0;   units.T_A = 'K';          label.T_A = 'Arrhenius temperature'; 
-par.T_AH = 69330;    free.T_AH  = 1;   units.T_AH = 'K';         label.T_AH = 'Arrhenius temperature'; 
-par.T_AL = 307.5;     free.T_AL  = 1;   units.T_AL = 'K';         label.T_AL = 'Arrhenius temperature'; 
+par.T_A = 8332.65;   free.T_A   = 0;   units.T_A = 'K';          label.T_A = 'Arrhenius temperature'; 
+par.T_AH = 100000;    free.T_AH  = 1;   units.T_AH = 'K';         label.T_AH = 'Arrhenius temperature'; 
+par.T_AL = 30000;     free.T_AL  = 1;   units.T_AL = 'K';         label.T_AL = 'Arrhenius temperature'; 
 par.T_H = 307.5;   free.T_H   = 1;   units.T_H = 'K';          label.T_H = 'Arrhenius temperature'; 
 par.T_L = 273;     free.T_L   = 1;   units.T_L = 'K';          label.T_L = 'Arrhenius temperature'; 
 
@@ -37,7 +37,7 @@ par.E_Hh  = 11.3; free.E_Hh = 1;    units.E_Hh  = 'J';        label.E_Hh  = 'mat
 %% environmental parameters (temperatures are in auxData)
 par.f     = 1.0;      free.f     = 0;   units.f = '-';            label.f     = 'scaled functional response for 0-var data';
 par.f_tL  = 0.8408;      free.f_tL  = 1;   units.f_tL = '-';         label.f_tL  = 'scaled functional response for WeylHech1998';
-par.f_tL1 = 0.701;    free.f_tL1 = 1;   units.f_tL1 = '-';        label.f_tL1 = 'scaled functional response for ChanDeSi1981';
+par.f_ChanDeSi1981 = 0.701;    free.f_ChanDeSi1981 = 1;   units.f_ChanDeSi1981 = '-';        label.f_ChanDeSi1981 = 'scaled functional response for ChanDeSi1981';
 par.f_LW0 = 0.2894;    free.f_LW0 = 1;   units.f_LW0 = '-';        label.f_LW0 = 'scaled functional response for Hlop2011 wild fish';
 
 %% set chemical parameters from Kooy2010 

@@ -35,8 +35,8 @@ metaData.date_acc    = [];
 
 data.ah = 2; units.ah = 'd'; label.ah = 'age at hatch'; bibkey.ah = 'PhilRuwe1982'; temp.ah = C2K(26.5); units.temp.ah = 'K'; label.temp.ah = 'temperature';
 data.ab = 6; units.ab = 'd'; label.ab = 'age at birth; age at swimup'; bibkey.ab = 'PhilRuwe1982'; temp.ab = temp.ah;  units.temp.ab = 'K'; label.temp.ab = 'temperature';
-data.tp = 365 * 2; units.tp = 'd'; label.tp = 'time since birth at puberty'; bibkey.tp = ''; temp.tp = C2K(25.8);  units.temp.tp = 'K'; label.temp.tp = 'temperature'; comment.tj = 'Second year';
-data.am = 16 * 365; units.am = 'd'; label.am = 'life span'; bibkey.am = 'WeylHech1998'; temp.am = temp.tp;  units.temp.am = 'K'; label.temp.am = 'temperature'; 
+data.tp = 365 * 1.5; units.tp = 'd'; label.tp = 'time since birth at puberty'; bibkey.tp = 'ChanDeSi1981'; temp.tp = C2K(29.8);  units.temp.tp = 'K'; label.temp.tp = 'temperature'; comment.tp = 'Second year';
+data.am = 16 * 365; units.am = 'd'; label.am = 'life span'; bibkey.am = 'WeylHech1998'; temp.am = C2K(25.8);  units.temp.am = 'K'; label.temp.am = 'temperature'; 
 
 data.L0  = 0.163; units.L0  = 'cm';  label.L0  = 'egg diameter'; bibkey.L0  = 'ChanDeSi1982'; comment.L0 = 'Range 1.3-1.8 cm';
 data.Lh  = 0.39; units.Lh  = 'cm';  label.Lh  = 'standard (?) length at hatch';    bibkey.Lh  = 'PhilRuwe1982';  
@@ -61,17 +61,25 @@ units.LWw = {'cm', 'g'};   label.LWw = {'total length', 'wet weight'};  bibkey.L
 comment.LWw = 'Figure 3.13; 2 extremely unlikely data points removed';
 
 % t-L data
+% data.tL = [ ...
+%     0	0	0	0	1	0	0	1	0	0	1	3	0	1	5	0	1	0	1	1	3	5	1	2	3	4	5	0	1	3	4	5	6	0	2	3	4	5	0	1	2	3	4	5	6	7	8	9	11	1	2	3	4	5	6	7	8	9	11	12	16	2	3	4	5	6	7	8	10	14	15	3	4	6	7	8	9	10	12	2	3	4	5	6	7	13	3	5	6	7	10	5	11	5	9	12	7; % time since birth (y)
+%     35	75	85	95	95	105	115	115	125	135	135	135	145	145	145	155	155	165	165	175	175	175	185	185	185	185	185	195	195	195	195	195	195	205	205	205	205	205	215	215	215	215	215	215	215	215	215	215	215	225	225	225	225	225	225	225	225	225	225	225	225	235	235	235	235	235	235	235	235	235	235	245	245	245	245	245	245	245	245	255	255	255	255	255	255	255	265	265	265	265	265	275	275	285	285	285	305; % Total length (mm) 
+%     1	14	14	21	1	29	22	2	11	4	1	1	1	2	1	5	8	4	2	2	1	1	3	1	1	1	1	1	2	5	4	1	1	1	4	4	3	1	1	1	5	5	2	5	1	1	1	2	1	1	2	4	2	6	5	1	2	1	4	2	1	3	4	2	5	1	3	1	1	1	1	1	3	6	1	1	1	2	1	1	1	1	2	1	3	1	1	2	2	2	1	1	1	1	1	1	1]'; % Frequency 
+% data.tL(:,1) = data.tL(:,1)*365 + 182;    % convert y to d; add 6 months average because age o is actually anything between 0 and 1
+% data.tL(:,2) = data.tL(:,2)/10;     % convert mm to cm
+% data.tL = [repelem(data.tL(:,1), data.tL(:,3)) repelem(data.tL(:,2), data.tL(:,3))]; % Change from frequency table to simple long matrix
+% units.tL   = {'d', 'cm'};  label.tL = {'time since birth', 'total length'};  
+% temp.tL    = C2K(25.8);  units.temp.tL = 'K'; label.temp.tL = 'temperature';
+% bibkey.tL = 'WeylHech1998';
+
 data.tL = [ ...
-    0	0	0	0	1	0	0	1	0	0	1	3	0	1	5	0	1	0	1	1	3	5	1	2	3	4	5	0	1	3	4	5	6	0	2	3	4	5	0	1	2	3	4	5	6	7	8	9	11	1	2	3	4	5	6	7	8	9	11	12	16	2	3	4	5	6	7	8	10	14	15	3	4	6	7	8	9	10	12	2	3	4	5	6	7	13	3	5	6	7	10	5	11	5	9	12	7; % time since birth (y)
-    35	75	85	95	95	105	115	115	125	135	135	135	145	145	145	155	155	165	165	175	175	175	185	185	185	185	185	195	195	195	195	195	195	205	205	205	205	205	215	215	215	215	215	215	215	215	215	215	215	225	225	225	225	225	225	225	225	225	225	225	225	235	235	235	235	235	235	235	235	235	235	245	245	245	245	245	245	245	245	255	255	255	255	255	255	255	265	265	265	265	265	275	275	285	285	285	305; % Total length (mm) 
-    1	14	14	21	1	29	22	2	11	4	1	1	1	2	1	5	8	4	2	2	1	1	3	1	1	1	1	1	2	5	4	1	1	1	4	4	3	1	1	1	5	5	2	5	1	1	1	2	1	1	2	4	2	6	5	1	2	1	4	2	1	3	4	2	5	1	3	1	1	1	1	1	3	6	1	1	1	2	1	1	1	1	2	1	3	1	1	2	2	2	1	1	1	1	1	1	1]'; % Frequency 
-data.tL(:,1) = data.tL(:,1)*365;    % convert y to d
-data.tL(:,2) = data.tL(:,2)/10;     % convert mm to cm
-data.tL = [repelem(data.tL(:,1), data.tL(:,3)) repelem(data.tL(:,2), data.tL(:,3))]; % Change from frequency table to simple long matrix
+1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	2	2	2	2	2	3	3	3	3	3	3	3	3	4	4	4	4;
+14.0	14.2	9.8	11.2	11.6	13.5	14.5	14.7	15.0	18.0	10.1	10.9	11.1	12.0	12.6	12.7	13.0	15.5	16.1	16.4	17.1	18.0	20.0	21.5	20.0	22.9	23.9	18.9	19.2	19.5	22.0	23.4	26.0	25.1	25.8	25.3]';
+data.tL(:,1) = data.tL(:,1)*365 + 182;    % convert y to d; add 6 months average because age 0 is actually anything between 0 and 1
 units.tL   = {'d', 'cm'};  label.tL = {'time since birth', 'total length'};  
-temp.tL    = temp.tp;  units.temp.tL = 'K'; label.temp.tL = 'temperature';
-bibkey.tL = 'WeylHech1998';
- 
+temp.tL    = C2K(22);  units.temp.tL = 'K'; label.temp.tL = 'temperature';
+bibkey.tL = 'Hlop2011';
+
 
 % t-SL for larvae
 data.tL0 = [ ...
@@ -93,18 +101,18 @@ temp.WwR = C2K(29.8);  units.temp.WwR = 'K'; label.temp.WwR = 'temperature';
 bibkey.WwR = 'ChanDesi1981'; comment.WwR = 'Table 1 and text';
 
 % % respiration in mg O2/g/d, temp in C (Caulton 1977) % See Argyrosomus_regius example
-% % fish wet weight: 50 g; used as the fixed parameter Ww_0 in the pars_init file
-% data.T_JO = [   17      23	28      33      37      38.5	40;         % Temperature C
-%                 2.35	3.5	5.82	6.58	7.83	9.34	13.6]';     % mg O2/g/d; same as g O2/kg/d
-% units.T_JO = {'C', 'g/d/kg'};  label.T_JO = {'temperature', 'O2 consumption'}; 
-% auxData.weight.T_JO =  50; units.weight.T_JO = {'g'}; label.weight.T_JO = {'wet weight'};
-% bibkey.T_JO = 'Caul1977';
-% 
+% fish wet weight: 50 g; used as the fixed parameter Ww_0 in the pars_init file
+data.T_JO = [   17      23	28      33      37      38.5	40;         % Temperature C
+                2.35	3.5	5.82	6.58	7.83	9.34	13.6]';     % mg O2/g/d; same as g O2/kg/d
+units.T_JO = {'C', 'g/d/kg'};  label.T_JO = {'temperature', 'O2 consumption'}; 
+auxData.weight.T_JO =  50; units.weight.T_JO = {'g'}; label.weight.T_JO = {'wet weight'};
+bibkey.T_JO = 'Caul1977';
+
 % Consumption rates 
 % Group consumption on duckweed Hlophe 2011
 data.JX_T1 = [  14.5	16.0	18.0	22.0	23.0	26.0	27.0;   % Temp C
                 102.0	135.2	99.0	170.8	182.0	216.5	269.3]';% Consumption rate g/d
-data.JX_T1 =[11	0.05*max(data.JX_T1(:,2));                              % Add pseudodata; minimum
+data.JX_T1 =[11.5	0;                              % Add pseudodata; minimum
             data.JX_T1;
             37.5	0.05*max(data.JX_T1(:,2))];                         % Add pseudodata; maximum
 data.JX_T1(:,2) = data.JX_T1(:,2)/1800*65;                              % convert from a group of fish with weight ~1800 g, each fish about 65g
@@ -115,7 +123,7 @@ bibkey.JX_T1  = 'Hlop1981';
 % Individual consumption Caulton 1982
 data.JX_T2 = [  18      22      26      30      34;                     % Temp C
                 2.12	3.26	5.76	6.64	6.62]';                 % Consumption rate g/d
-data.JX_T2 =[11	0.05*max(data.JX_T2(:,2));                              % Add pseudodata; minimum
+data.JX_T2 =[11.5	0;                              % Add pseudodata; minimum
             data.JX_T2;
             37.5	0.05*max(data.JX_T2(:,2))];                         % Add pseudodata
 units.JX_T2   = {'C', 'g/d'};  label.JX_T2 = {'Temperature','feed intake'};  
@@ -167,10 +175,16 @@ bibkey.tdW_T32 = 'Kang2004';
 
 %% set weights for all real data
 weights = setweights(data, []);
-weights.JX_T1(1) = 0.1* weights.JX_T1(1); % treat the first value as pseudo data
-weights.JX_T1(9) = 0.1* weights.JX_T1(9); % treat the last value as pseudo data
-weights.JX_T2(1) = 0.1* weights.JX_T2(1); % treat the first value as pseudo data
-weights.JX_T2(7) = 0.1* weights.JX_T2(7); % treat the last value as pseudo data
+weights.Li = 0.1 * weights.Li; % treat as pseudo data
+weights.Wwi = 0.1 * weights.Wwi; % treat as pseudo data
+weights.Ri = 0.1 * weights.Ri; % treat as pseudo data
+
+weights.JX_T1(1) = 0.1 * weights.JX_T1(1); % treat the first value as pseudo data
+weights.JX_T1(9) = 0.1 * weights.JX_T1(9); % treat the last value as pseudo data
+weights.JX_T2(1) = 0.1 * weights.JX_T2(1); % treat the first value as pseudo data
+weights.JX_T2(7) = 0.1 * weights.JX_T2(7); % treat the last value as pseudo data
+
+weights.T_JO(5:7, :) = 0 * weights.T_JO(5:7, :); % do not use the last three values because high respiration is due to stress (does not match with the consumption data)
 
 %% set pseudodata and respective weights
 [data, units, label, weights] = addpseudodata(data, units, label, weights);
@@ -190,7 +204,7 @@ metaData.grp.comment = {comment1, comment2};
 
 %% Discussion points
 D1 = 'Stunted growth and precocial puberty are common phenomena (and problems in aquaculture)';
-D2 = '';     
+D2 = 'Can be very cannibalistic when raised at high densities.';     
 metaData.discussion = struct('D1', D1, 'D2', D2);
 
 %% Facts
@@ -227,10 +241,17 @@ metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ' bib, '}'';'];
 bibkey = 'WeylHech1998'; type = 'Article'; bib = [ ... 
 'author = {Weyl, Olaf L. F. and Hecht, T.}, ' ... 
 'year = {1998}, ' ...
-'title = {The biology of Tilapia rendalli and Oreochromis mossambicus (Pisces: Cichlidae)in a subtropical lake in Mozambique}, ' ...
+'title = {The biology of \emph{Tilapia rendalli} and \emph{Oreochromis mossambicus} (Pisces: Cichlidae)in a subtropical lake in Mozambique}, ' ...
 'journal = {South African Journal of Zoology}, ' ...
 'volume = {33}, ' ...
 'number = {3}, '...
 'pages = {178-188}'];
+metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ' bib, '}'';'];
+
+bibkey = 'Kang2004'; type = 'phdthesis'; bib = [ ... 
+'author = {Kangombe, Jeremiah}, ' ... 
+'year = {2004}, ' ...
+'title = {Development of feeding protocols for \emph{Tilapia rendalli} in Malawi reared in semi-intensive culture systems}, ' ...
+'school = {Memorial University of Newfoundland}'];
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ' bib, '}'';'];
 
