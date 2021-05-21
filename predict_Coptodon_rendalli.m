@@ -1,16 +1,18 @@
 function [prdData, info] = predict_Coptodon_rendalli(par, data, auxData)
   
   % unpack par, data, auxData
-  cPar = parscomp_st(par); vars_pull(par); 
-  vars_pull(cPar);  vars_pull(data);  vars_pull(auxData);
+  cPar = parscomp_st(par);  % calculate compound parameters from par (primary parameters)
+  vars_pull(par);           % make primary parameters available
+  vars_pull(cPar);          % make compound parameters available
+  vars_pull(data);  vars_pull(auxData);
   
   % customized filters for allowable parameters of the standard DEB model (std)
   % for other models consult the appropriate filter function.
-  filterChecks =  k * v_Hp >= f_tL^3 || k * v_Hp >= f_ChanDeSi1981^3 || ...                  % constraint required for reaching puberty with f_tL
+  filterChecks =  k * v_Hp >= f_tL^3 || k * v_Hp >= f_ChanDeSi1981^3 || ...         % constraint required for reaching puberty with f_tL
                  ~reach_birth(g, k, v_Hb, f_tL)|| ...                               % constraint required for reaching birth with f_tL
                  E_Hh >= E_Hb || E_Hh < 0 || ...                                    % maturity at hatching must be positive and greater than that at birth
                  T_L>T_ref || T_L<273 || T_H<T_ref || T_AH<T_H || T_AL<T_H || ...	% Temperatures for Arrhenius curve
-                 f_LW0 > 1.5;                                                       % Note: Consumption in wild can be twice that in captivity (which is assumed to be as high as 1, here);
+                 f_Hlop2011 > 1.5;                                                  % Note: Consumption in wild can be twice that in captivity (which is assumed to be as high as 1, here);
        
   if filterChecks  
     info = 0;
@@ -85,16 +87,16 @@ function [prdData, info] = predict_Coptodon_rendalli(par, data, auxData)
   %% uni-variate data
   
   %% Length-weight; Hlop2011
-  prdData.LWw  = (LWw(:,1) * del_M).^3 * (1 + f_LW0 * w);                  % g, expected wet weight at time; f is scaled reserve density; w is actually omega
+  prdData.LWw  = (LWw(:,1) * del_M).^3 * (1 + f_Hlop2011 * w);             % g, expected wet weight at time; f is scaled reserve density; w is actually omega
   
   %% time since birth-length; Hlop2011
-  prdData.tL  = get_Lw(f_LW0, TC_tp,  tL,   par, cPar);                    % Juveniles and adults; 
-  prdData.tL0 = get_Lw(f,	  TC_tL0, tL0,  par, cPar);                    % Larvae; MoriMats2007; assume feeding is not at max (because wrong food, stress, etc.)
+  prdData.tL  = get_Lw(f_Hlop2011, TC_tp, tL, par, cPar);                  % Juveniles and adults; 
+  prdData.tL0 = get_Lw(f, TC_tL0, tL0, par, cPar);                         % Larvae; MoriMats2007; assume feeding is not at max (because wrong food, stress, etc.)
   
   %% Wet-weight v fecundity; ChanDeSi1981
   pars_R = [kap; kap_R; g; k_J; k_M; L_T; v; U_Hb; U_Hp];                  % compose parameter vector at T
-  Length = (WwR(:,1) / (1 + f_ChanDeSi1981 * w)).^(1/3);                            % Structural length at T and f_ChanDeSi1981
-  prdData.WwR = 365 * TC_WwR * reprod_rate(Length, f_ChanDeSi1981, pars_R);         % #, fecundity per year
+  Length = (WwR(:,1) / (1 + f_ChanDeSi1981 * w)).^(1/3);                   % Structural length at T and f_ChanDeSi1981
+  prdData.WwR = 365 * TC_WwR * reprod_rate(Length, f_ChanDeSi1981, pars_R);% #, fecundity per year
  
   %% Temperature - O2 consumption; Caul1997
   pars_pow = [kap; kap_R; g; k_J; k_M; L_T; v; U_Hb; U_Hp];                % compose pars
@@ -131,10 +133,10 @@ function [prdData, info] = predict_Coptodon_rendalli(par, data, auxData)
   
   
   %% Growth at different temperatures
-  prdData.tdW_T20   = get_tdW(f, TC_tdW_T20, tdW_T20, 6.66, par, cPar);    % 20.5 C
-  prdData.tdW_T24   = get_tdW(f, TC_tdW_T24, tdW_T24, 6.69, par, cPar);    % 24 C
-  prdData.tdW_T28   = get_tdW(f, TC_tdW_T28, tdW_T28, 6.60, par, cPar);    % 28 C
-  prdData.tdW_T32   = get_tdW(f, TC_tdW_T32, tdW_T32, 6.62, par, cPar);    % 32 C
+  prdData.tdW_T20   = get_tdW(f_exp, TC_tdW_T20, tdW_T20, 6.66, par, cPar);    % 20.5 C
+  prdData.tdW_T24   = get_tdW(f_exp, TC_tdW_T24, tdW_T24, 6.69, par, cPar);    % 24 C
+  prdData.tdW_T28   = get_tdW(f_exp, TC_tdW_T28, tdW_T28, 6.60, par, cPar);    % 28 C
+  prdData.tdW_T32   = get_tdW(f_exp, TC_tdW_T32, tdW_T32, 6.62, par, cPar);    % 32 C
 
 
   
